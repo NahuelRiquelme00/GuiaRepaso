@@ -1,5 +1,8 @@
 package EmpresaDeCapacitacion;
 
+import java.util.function.Function;
+import java.util.function.Predicate;
+
 public class Taller extends Capacitacion {
 	private Integer duracionHoras;
 	private Double costoHoras;
@@ -16,32 +19,32 @@ public class Taller extends Capacitacion {
 		this.cantidadInscriptos = cantidadInscriptos;
 	}
 
-
+	Function<Taller,Integer> creditosPorDuracion = (t) -> (t.duracionHoras>72 ? 12 : t.duracionHoras/6);
+	Function<Taller,Integer> creditosPorPrioridad = (t) -> (t.prioritaria ? 1 : 0);
 
 	@Override
 	public Integer creditosObtenidos() {
-		Integer creditos = 0;
-		creditos = duracionHoras/6;
-		if (creditos > 12) creditos = 12;
-		if (this.prioritaria) creditos+=1;
-		return creditos;
+		return creditosPorDuracion.apply(this) + creditosPorPrioridad.apply(this);
 	}
-
-
+	
+	Function<Taller,Double> costoPorduracion = (t) -> (t.duracionHoras*t.costoHoras);
+	Function<Double,Double> tallerEstrategico = (c) -> (c + c*0.20);
+	Function<Taller,Double> costoTaller = (t) -> (t.prioritaria? tallerEstrategico.compose(costoPorduracion).apply(t) : costoPorduracion.apply(t));
 
 	@Override
 	public Double costoCapacitacion() {
-		Double costo = 0.0;
-		costo = (duracionHoras * costoHoras);
-		if(this.prioritaria) costo += (costo*0.20);
-		return costo;
+//		Double costo = 0.0;
+//		costo = (duracionHoras * costoHoras);
+//		if(this.prioritaria) costo += (costo*0.20);
+//		return costo;
+		return costoTaller.apply(this);
 	}
 
 
 
 	@Override
 	public String toString() {
-		return "Taller [Nombre = "+ this.nombre + "]";
+		return "Taller [Nombre="+ this.nombre + " costo ="+ this.costoCapacitacion()+ " credito="+ this.creditosObtenidos()+"]";
 	}
 
 
