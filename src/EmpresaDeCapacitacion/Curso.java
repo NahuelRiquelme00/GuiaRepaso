@@ -53,6 +53,21 @@ public class Curso extends Capacitacion {
 	public Docente getDocente() {
 		return docente;
 	}
+
+	@Override
+	public Boolean inscribir(Alumno a) throws CreditosInsuficientesException {
+		Boolean flag = true;
+		if(a.creditosObtenidos()<this.creditosRequeridos) {
+			flag = false;
+			throw new CreditosInsuficientesException();
+		}
+		return flag;
+	}
+
+	@Override
+	public void aprobar(Alumno a) {
+				
+	}
 	
 	
 

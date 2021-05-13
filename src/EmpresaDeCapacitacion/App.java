@@ -7,7 +7,8 @@ public class App {
 		
 		//prueba1();
 		//prueba2();
-		prueba3();
+		//prueba3();
+		prueba4();
 		
 	}
 	
@@ -68,4 +69,15 @@ public class App {
 		
 	}
 
+	static void prueba4() {
+		
+		Docente d2 = new Docente("Pepe","0",20,5.0);
+		Capacitacion c3 = new Curso(d2,10,2,0,"DIED",false,Tema.IA);
+		Capacitacion c1 = new Taller(10,2.0,10,10,"AMI",true,Tema.GESTION);
+		Alumno a1 = new Alumno(1717,"Nahuel Riquelme");
+		
+		a1.inscribir(c3);
+		a1.inscribir(c1);
+		
+	}
 }

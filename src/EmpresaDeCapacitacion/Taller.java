@@ -43,6 +43,25 @@ public class Taller extends Capacitacion {
 	public String toString() {
 		return "Taller [Nombre = "+ this.nombre + "]";
 	}
+
+
+
+	@Override
+	public Boolean inscribir(Alumno a) throws TallerCompletoException{
+		Boolean flag = true;
+		if(this.cantidadInscriptos>=this.cupoMaximo) {
+			flag = false;
+			throw new TallerCompletoException();
+		}
+		return flag;
+	}
+
+
+
+	@Override
+	public void aprobar(Alumno a) {
+		this.cantidadInscriptos--;		
+	}
 	
 	
 	

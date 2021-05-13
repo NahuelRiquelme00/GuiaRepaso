@@ -17,4 +17,8 @@ public abstract class Capacitacion {
 		return prioritaria;
 	}
 	
+	public abstract Boolean inscribir(Alumno a) throws TallerCompletoException, CreditosInsuficientesException;
+	
+	public abstract void aprobar(Alumno a);
+	
 }
